@@ -1,0 +1,2 @@
+# If you remove it, Django won’t recognize the folder as a package, and migrations may fail.
+# This file makes the migrations directory a Python package so Django can import and run those migration scripts.
