@@ -3,8 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { signup } from "../store/auth";
-
 import httpService from "../utils/httpService";
+
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import GoogleIcon from "@mui/icons-material/Google";
+import FacebookIcon from "@mui/icons-material/Facebook";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -51,90 +54,87 @@ const SignUpPage = () => {
   };
 
   useEffect(() => {
-    isAuthenticated && navigate("/");
-    accountCreated && navigate("/login");
+    if (isAuthenticated) navigate("/");
+    if (accountCreated) navigate("/login");
   }, [isAuthenticated, accountCreated, navigate]);
 
   return (
-    <div className="container mt-5">
-      <h1>Sign Up</h1>
-      <p>Create your account</p>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div className="form-group">
-          <label htmlFor="email">Email address</label>
-          <input
+    <Box
+      sx={{
+        maxWidth: 400,
+        margin: "auto",
+        mt: 8,
+        p: 4,
+        boxShadow: 3,
+        borderRadius: 2,
+      }}
+    >
+      <Typography variant="h4" gutterBottom sx={{ textAlign: "center", mb: 4 }}>
+        Create Your Account
+      </Typography>
+
+      <form onSubmit={handleSubmit}>
+        <Stack spacing={2}>
+          <TextField
+            fullWidth
             type="email"
             name="email"
+            label="Email Address"
             value={email}
             onChange={handleOnChange}
-            className="form-control"
-            id="email"
-            required
-            aria-describedby="emailHelp"
-            placeholder="Enter email"
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
+          <TextField
+            fullWidth
             type="password"
             name="password"
+            label="Password"
             value={password}
             onChange={handleOnChange}
-            className="form-control"
-            id="password"
-            required
-            placeholder="Password"
           />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="re_password">Confirm Password</label>
-          <input
+          <TextField
+            fullWidth
             type="password"
             name="re_password"
+            label="Confirm Password"
             value={re_password}
             onChange={handleOnChange}
-            className="form-control"
-            id="re_password"
-            required
-            placeholder="Confirm Password"
           />
-        </div>
 
-        <button
-          type="submit"
-          className="btn btn-primary  mt-3"
-          style={{ borderRadius: "50px" }}
-        >
-          Sign Up
-        </button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            sx={{ borderRadius: "50px" }}
+          >
+            Sign Up
+          </Button>
+
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<GoogleIcon />}
+            sx={{ borderRadius: "50px" }}
+            onClick={handleContinueWithGoogle}
+          >
+            Continue with Google
+          </Button>
+
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<FacebookIcon />}
+            sx={{ borderRadius: "50px" }}
+            onClick={handleContinueWithFacebook}
+          >
+            Continue with Facebook
+          </Button>
+        </Stack>
       </form>
 
-      <button
-        type="button"
-        className="btn btn-danger mt-3"
-        style={{ borderRadius: "50px" }}
-        onClick={handleContinueWithGoogle}
-      >
-        Continue with Google
-      </button>
-
-      <br />
-
-      <button
-        type="button"
-        className="btn btn-primary mt-3"
-        style={{ borderRadius: "50px" }}
-        onClick={handleContinueWithFacebook}
-      >
-        Continue with Facebook
-      </button>
-
-      <p className="my-3">
+      <Typography variant="body2" sx={{ mt: 2 }}>
         Already have an account? <Link to="/login">Login</Link>
-      </p>
-    </div>
+      </Typography>
+    </Box>
   );
 };
 
