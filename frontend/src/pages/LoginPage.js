@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+
+import FacebookIcon from "@mui/icons-material/Facebook";
+import GoogleIcon from "@mui/icons-material/Google";
 
 import { login } from "../store/auth";
-
 import httpService from "../utils/httpService";
+
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -44,78 +48,84 @@ const LoginPage = () => {
       window.location.replace(response.data.authorization_url);
     } catch (error) {}
   };
+
   useEffect(() => {
-    isAuthenticated && navigate("/");
+    if (isAuthenticated) navigate("/");
   }, [isAuthenticated, navigate]);
 
   return (
-    <div className="container mt-5">
-      <h1>Sign In</h1>
-      <p>Sign into your account</p>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div className="form-group">
-          <label htmlFor="email">Email address</label>
-          <input
+    <Box
+      sx={{
+        maxWidth: 400,
+        margin: "auto",
+        mt: 8,
+        p: 4,
+        boxShadow: 3,
+        borderRadius: 2,
+      }}
+    >
+      <Typography variant="h4" gutterBottom
+        sx={{ textAlign: "center", mb: 4 }}>
+        Sign Into Your Account
+      </Typography>
+
+      <form onSubmit={handleSubmit}>
+        <Stack spacing={2}>
+          <TextField
+            fullWidth
             type="email"
             name="email"
+            label="Email Address"
             value={email}
             onChange={handleOnChange}
-            className="form-control"
-            id="email"
-            aria-describedby="emailHelp"
-            placeholder="Enter email"
           />
-        </div>
-        <div className="form-group">
-          <label htmlFor="password">Password</label>
-          <input
+          <TextField
+            fullWidth
             type="password"
             name="password"
+            label="Password"
             value={password}
             onChange={handleOnChange}
-            className="form-control"
-            id="password"
-            placeholder="Password"
           />
-        </div>
 
-        <button
-          type="submit"
-          className="btn btn-primary mt-3"
-          style={{ borderRadius: "50px" }}
-        >
-          Login
-        </button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            sx={{ borderRadius: "50px" }}
+          >
+            Login
+          </Button>
+
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<GoogleIcon />}
+            sx={{ borderRadius: "50px" }}
+            onClick={handleContinueWithGoogle}
+          >
+            Continue with Google
+          </Button>
+
+          <Button
+            variant="contained"
+            color="primary" // Facebook blue
+            startIcon={<FacebookIcon />}
+            sx={{ borderRadius: "50px" }}
+            onClick={handleContinueWithFacebook}
+          >
+            Continue with Facebook
+          </Button>
+        </Stack>
       </form>
 
-      <button
-        type="button"
-        className="btn btn-danger mt-3"
-        style={{ borderRadius: "50px" }}
-        onClick={handleContinueWithGoogle}
-      >
-        Continue with Google
-      </button>
-
-      <br />
-
-      <button
-        type="button"
-        className="btn btn-primary mt-3"
-        style={{ borderRadius: "50px" }}
-        onClick={handleContinueWithFacebook}
-      >
-        Continue with Facebook
-      </button>
-
-      <p className="my-3">
+      <Typography variant="body2" sx={{ mt: 2 }}>
         Don't have an account? <Link to="/signup">Sign Up</Link>
-      </p>
-
-      <p className="my-3">
+      </Typography>
+      <Typography variant="body2" sx={{ mt: 1 }}>
         Forgot your password? <Link to="/reset-password">Reset Password</Link>
-      </p>
-    </div>
+      </Typography>
+    </Box>
   );
 };
 

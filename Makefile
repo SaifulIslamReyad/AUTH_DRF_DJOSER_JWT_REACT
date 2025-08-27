@@ -61,9 +61,21 @@ fresh:
 	cd backend && python manage.py migrate
 	@echo "Fresh setup completed! You may want to create a superuser with 'make superuser'"
 
-reyad:
+all:
+	make build
 	make clean
 	make migraterun
+
+build:
+	cd frontend && npm run build && cd ..
+
+reyad:
+	make build
+	make run
+
+front:
+	cd frontend && npm start
+
 # Show available commands
 help:
 	@echo "Available commands:"
@@ -81,4 +93,6 @@ help:
 	@echo "  make fresh       - Clean everything and run initial setup"
 	@echo "  make help        - Show this help message"
 
-.PHONY: migraterun migrate run serve app superuser static test clean clean-cache reset-db fresh help reyad
+.PHONY: migraterun migrate run serve app superuser static test clean clean-cache reset-db fresh help reyad build front all
+
+
