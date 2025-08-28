@@ -18,7 +18,7 @@ const ProfileSetupPage = () => {
 
   useEffect(() => {
     if (!isAuthenticated) {
-      navigate("/login");
+      navigate("");
     }
     // If user already has a name, redirect to home
     if (user && user.name) {

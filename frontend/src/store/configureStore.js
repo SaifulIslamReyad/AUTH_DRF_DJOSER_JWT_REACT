@@ -8,3 +8,16 @@ export default function () {
     middleware: [...getDefaultMiddleware(), api],
   });
 }
+
+
+// Configures the Redux store using Redux Toolkit.
+
+// Adds:
+
+// reducer → root reducer (auth slice here)
+
+// Middleware:
+
+// Default middleware from RTK (includes thunk, serializable checks, etc.)
+
+// Your custom api middleware, which handles API actions (apiCallBegun).

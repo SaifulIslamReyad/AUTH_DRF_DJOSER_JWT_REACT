@@ -52,7 +52,7 @@ axiosInstance.interceptors.response.use(
           // Refresh token is invalid, redirect to login
           localStorage.removeItem("access");
           localStorage.removeItem("refresh");
-          window.location.href = "/login";
+          window.location.href = "/";
           return Promise.reject(refreshError);
         }
       }

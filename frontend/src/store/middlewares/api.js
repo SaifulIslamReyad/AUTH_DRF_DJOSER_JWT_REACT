@@ -1,6 +1,6 @@
 import httpService from "../../utils/httpService";
 import * as actions from "../api";
-
+// middleware
 const api =
   ({ dispatch }) =>
   (next) =>
@@ -41,3 +41,15 @@ const api =
   };
 
 export default api;
+
+
+
+// Listens for apiCallBegun.
+
+// Reads the payload → (URL, method, data, etc.).
+
+// Makes the actual HTTP request (using your httpService).
+
+// Dispatches generic results (apiCallSuccess / apiCallFailed) for global tracking (like loading spinners or logging).
+
+// Dispatches specific results (onSuccess / onError) so reducers can update the right slice of state.
