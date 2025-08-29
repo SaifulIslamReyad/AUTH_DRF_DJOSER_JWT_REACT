@@ -3,14 +3,18 @@ import { createTheme } from "@mui/material/styles";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#e7e7e7ff",
+      main: "#6d6d6dff",
     },
     secondary: {
-      main: "#686868ff",
+      main: "#e7e7e7ff",
     },
     tartiary: {
       main: "#000000ff",
     },
+    verified: {
+      main: "#6c9578ff",
+    },
+  
   },
   typography: {
     fontFamily: "Poppins, Arial, sans-serif",

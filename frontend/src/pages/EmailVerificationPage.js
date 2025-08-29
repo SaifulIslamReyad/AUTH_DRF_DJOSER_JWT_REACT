@@ -78,7 +78,7 @@ const EmailVerificationPage = () => {
           component="h2"
           gutterBottom
           sx={{
-            color: "text.secondary",
+            color: "tartiary.main",
             mb: 3,
           }}
         >
@@ -86,17 +86,16 @@ const EmailVerificationPage = () => {
         </Typography>
 
         {/* Main Message */}
-        <Typography
-          variant="body1"
+       <Typography
+          variant="body2"
           sx={{
-            mb: 3,
-            lineHeight: 1.6,
-            color: "text.primary",
+            mb: 4,
+            color: "text.secondary",
+            fontStyle: "italic",
           }}
         >
-          To complete your registration and login to your account, please
-          activate your account by clicking the verification link that has been
-          sent to:
+          Please check your inbox and spam folder. Click the verification link
+          in the email to activate your account.
         </Typography>
 
         {/* Email Display */}
@@ -114,7 +113,7 @@ const EmailVerificationPage = () => {
             variant="body1"
             sx={{
               fontWeight: "medium",
-              color: "primary.main",
+              color: "tartiary.main",
             }}
           >
             {email}
@@ -122,17 +121,7 @@ const EmailVerificationPage = () => {
         </Box>
 
         {/* Instructions */}
-        <Typography
-          variant="body2"
-          sx={{
-            mb: 4,
-            color: "text.secondary",
-            fontStyle: "italic",
-          }}
-        >
-          Please check your inbox and spam folder. Click the verification link
-          in the email to activate your account.
-        </Typography>
+        
 
         {/* Action Buttons */}
         <Stack spacing={2}>
@@ -173,7 +162,7 @@ const EmailVerificationPage = () => {
             </Button>
 
             <Button
-              variant="text"
+              variant="outlined"
               size="medium"
               onClick={handleBackToSignup}
               sx={{

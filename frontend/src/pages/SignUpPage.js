@@ -8,6 +8,7 @@ import httpService from "../utils/httpService";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import {
+  Alert,
   Box,
   Button,
   CircularProgress,
@@ -26,6 +27,8 @@ const SignUpPage = () => {
     re_password: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState(false);
+  const [isFacebookLoading, setIsFacebookLoading] = useState(false);
   const [validationError, setValidationError] = useState("");
 
   const { email, password, re_password } = formData;
@@ -37,8 +40,12 @@ const SignUpPage = () => {
   const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
     // Clear validation error when user starts typing
-
     if (validationError) setValidationError("");
+    // Also clear any auth errors from previous attempts
+    if (error) {
+      // You might want to dispatch an action to clear the error in the store
+      // For now, we'll rely on the local validation error state
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -65,32 +72,79 @@ const SignUpPage = () => {
 
     try {
       await dispatch(signup(email, password, re_password));
-      // Navigate to email verification page with email info
+      // Only navigate if signup was successful
       navigate("/email-verification", { state: { email } });
     } catch (error) {
-      // Error handling is done in the auth slice
+      // Extract and display meaningful error message
+      let errorMessage = error.message || "Signup failed. Please try again.";
+
+      // Handle specific error cases
+      if (
+        errorMessage.toLowerCase().includes("already exists") ||
+        errorMessage
+          .toLowerCase()
+          .includes("user with this email already exists") ||
+        errorMessage.toLowerCase().includes("email already registered") ||
+        errorMessage.toLowerCase().includes("unique")
+      ) {
+        errorMessage =
+          "An account with this email address already exists. Please try logging in instead.";
+      }
+
+      setValidationError(errorMessage);
       console.error("Signup failed:", error);
     } finally {
       setIsSubmitting(false);
     }
   };
-
   const handleContinueWithGoogle = async () => {
+    setIsGoogleLoading(true);
+    setValidationError("");
+
     try {
+      // Determine backend host dynamically
+      const host = window.location.hostname; // localhost or 192.168.x.x
+      const redirectURI = `http://${host}:8000/google`;
+
       const response = await httpService.get(
-        "/auth/o/google-oauth2/?redirect_uri=http://localhost:8000/google"
+        `/auth/o/google-oauth2/?redirect_uri=${encodeURIComponent(redirectURI)}`
       );
-      window.location.replace(response.data.authorization_url);
-    } catch (error) {}
+
+      if (response.data && response.data.authorization_url) {
+        window.location.replace(response.data.authorization_url);
+      } else {
+        throw new Error("No authorization URL received");
+      }
+    } catch (error) {
+      console.error("Google OAuth error:", error);
+      setValidationError(
+        "Failed to initiate Google authentication. Please try again."
+      );
+      setIsGoogleLoading(false);
+    }
   };
 
   const handleContinueWithFacebook = async () => {
+    setIsFacebookLoading(true);
+    setValidationError("");
+
     try {
       const response = await httpService.get(
         "/auth/o/facebook/?redirect_uri=http://localhost:8000/facebook"
       );
-      window.location.replace(response.data.authorization_url);
-    } catch (error) {}
+
+      if (response.data && response.data.authorization_url) {
+        window.location.replace(response.data.authorization_url);
+      } else {
+        throw new Error("No authorization URL received");
+      }
+    } catch (error) {
+      console.error("Facebook OAuth error:", error);
+      setValidationError(
+        "Failed to initiate Facebook authentication. Please try again."
+      );
+      setIsFacebookLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -119,7 +173,26 @@ const SignUpPage = () => {
 
       <form onSubmit={handleSubmit}>
         <Stack spacing={2}>
-          
+          {/* Error Display */}
+          {(validationError || error) && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {validationError || error}
+              {/* Show helpful link for duplicate email errors */}
+              {(validationError || error)
+                ?.toLowerCase()
+                .includes("already exists") && (
+                <Box sx={{ mt: 1 }}>
+                  <Link
+                    to="/login"
+                    style={{ color: "inherit", textDecoration: "underline" }}
+                  >
+                    Click here to login instead
+                  </Link>
+                </Box>
+              )}
+            </Alert>
+          )}
+
           <TextField
             fullWidth
             type="email"
@@ -182,23 +255,35 @@ const SignUpPage = () => {
           <Button
             variant="contained"
             color="primary"
-            startIcon={<GoogleIcon />}
+            startIcon={
+              isGoogleLoading ? <CircularProgress size={20} /> : <GoogleIcon />
+            }
             sx={{ borderRadius: "50px" }}
             onClick={handleContinueWithGoogle}
-            disabled={isSubmitting}
+            disabled={isGoogleLoading}
           >
-            Continue with Google
+            {isGoogleLoading
+              ? "Connecting to Google..."
+              : "Continue with Google"}
           </Button>
 
           <Button
             variant="contained"
             color="primary"
-            startIcon={<FacebookIcon />}
+            startIcon={
+              isFacebookLoading ? (
+                <CircularProgress size={20} />
+              ) : (
+                <FacebookIcon />
+              )
+            }
             sx={{ borderRadius: "50px" }}
             onClick={handleContinueWithFacebook}
-            disabled={isSubmitting}
+            disabled={isFacebookLoading}
           >
-            Continue with Facebook
+            {isFacebookLoading
+              ? "Connecting to Facebook..."
+              : "Continue with Facebook"}
           </Button>
         </Stack>
       </form>

@@ -41,9 +41,9 @@ const SignInUp = () => {
             component={RouterLink}
             to="/login"
             variant="contained" 
-            color="primary"
+            color="secondary"
             size="large"
-            sx={{   fontWeight: "fontWeightBold"}}
+            sx={{ fontWeight: "fontWeightBold" }}
           >
             LOGIN
           </Button>
@@ -52,7 +52,7 @@ const SignInUp = () => {
             component={RouterLink}
             to="/signup"
             variant="contained"
-            color="primary"
+            color="secondary"
             size="large"
             sx={{   fontWeight: "fontWeightBold"}}
 

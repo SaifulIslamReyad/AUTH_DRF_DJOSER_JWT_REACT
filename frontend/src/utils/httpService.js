@@ -1,7 +1,18 @@
 import axios from "axios";
 
 // Set base URL for API calls
-const baseURL = process.env.REACT_APP_API_URL || "http://localhost:8000";
+// Determine the API URL based on the environment
+const baseURL =
+  process.env.REACT_APP_API_URL ||
+  (() => {
+    const hostname = window.location.hostname;
+    if (hostname === "localhost" || hostname === "127.0.0.1") {
+      return "http://localhost:8000";
+    } else {
+      return "http://192.168.1.206:8000";
+    }
+  })();
+
 axios.defaults.baseURL = baseURL;
 
 // Create axios instance with interceptors

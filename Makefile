@@ -40,11 +40,16 @@ build-run-backend:
 run-frontend:
 	cd frontend && npm start
 
-run-phone:
-
+run-frontend-phone:
 	cd frontend  && npm start -- --host 0.0.0.0
+run-backend-phone:
+	cd backend && python manage.py runserver 0.0.0.0:8000
 
-
+all2:
+	make build
+	make clean-backend
+	make migrate
+	make run-backend-phone
 
 help:
 	@echo "  make all"
@@ -57,7 +62,9 @@ help:
 	@echo "  make run-frontend "
 	@echo "  make build-run-backend "
 	@echo "  make build "
+	@echo "  make run-frontend-phone"
+	@echo "  make run-backend-phone"
 
-.PHONY: migrate-run migrate run-backend clean-backend clean-backend-cache reset-db  help build-run-backend build run-frontend run-phone all
+.PHONY: migrate-run migrate run-backend clean-backend clean-backend-cache reset-db  help build-run-backend build run-frontend run-frontend-phone all run-backend-phone all2
 
 
