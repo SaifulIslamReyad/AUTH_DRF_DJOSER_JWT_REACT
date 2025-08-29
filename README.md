@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="README.css" />
-
 # Django React Auth System
 
 This repo contains a Django & React production level authentication functionality. It has most if not all of the features you would expect from a production level authentication feature. It has a fully functional backend with a REST API and a fully functional React frontend. It has the following fully functional features:
@@ -10,7 +8,7 @@ This repo contains a Django & React production level authentication functionalit
 - Sign in with Facebook
 - Password reset with email verification
 
-A live demo of the project can be found [here](https://justicenyaga.pythonanywhere.com/).
+A live demo of the project can be found [here]().
 
 ## Major Packages used in the backend
 
@@ -19,6 +17,7 @@ A live demo of the project can be found [here](https://justicenyaga.pythonanywhe
 3. [Django REST Framework Simple JWT](https://django-rest-framework-simplejwt.readthedocs.io/en/latest/)
 4. [Djoser](https://djoser.readthedocs.io/en/latest/)
 5. [social-auth-app-django](https://python-social-auth.readthedocs.io/en/latest/configuration/django.html)
+6. [Material Ui](https://mui.com/material-ui/getting-started/templates/)
 
 ## Getting Started
 
@@ -26,7 +25,7 @@ A live demo of the project can be found [here](https://justicenyaga.pythonanywhe
 
 - [Python 3.8](https://www.python.org/downloads/)
 - [Node.js](https://nodejs.org/en/download/)
-- [PostgreSQL](https://www.postgresql.org/download/)
+- [SQLite]()
 - [Google OAuth2 Credentials](https://developers.google.com/identity/protocols/oauth2)
 - [Facebook OAuth2 Credentials](https://developers.facebook.com/docs/facebook-login/web)
 
@@ -187,56 +186,17 @@ The following endpoints are available in the backend API as per the [Djoser](htt
 </table>
 
 
+## Backend Setup
 
-
-
-# Authentication Fix Guide
-
-This guide explains the fixes applied to resolve the access token and refresh token logic issues.
-
-## Issues Fixed
-
-1. **Missing base URL configuration** - Frontend now properly configured to connect to backend
-2. **Token refresh logic missing** - Added automatic token refresh when access token expires
-3. **Missing axios interceptors** - Added automatic token handling in HTTP requests
-4. **Token verification endpoint mismatch** - Fixed incorrect endpoint usage
-5. **Missing CORS configuration** - Added CORS support to allow frontend-backend communication
-
-## Backend Changes
-
-### 1. Updated `backend/auth_system/settings.py`
-- Added `corsheaders` to INSTALLED_APPS
-- Added CORS middleware configuration
-- Enhanced JWT configuration with proper token rotation and blacklisting
-- Added CORS allowed origins and headers
-
-### 2. Updated `backend/requirements.txt`
-- Added `django-cors-headers==4.3.1`
-
-## Frontend Changes
-
-### 1. Updated `frontend/src/utils/httpService.js`
-- Added proper base URL configuration
-- Added axios interceptors for automatic token handling
-- Added automatic token refresh logic
-- Added request/response interceptors
-
-### 2. Updated `frontend/src/store/auth.js`
-- Simplified authentication logic
-- Added proper error handling
-- Added token refresh functionality
-- Removed manual token verification that was causing issues
-
-## Setup Instructions
-
-### Backend Setup
 1. Install the new dependency:
+
    ```bash
    cd backend
    pip install django-cors-headers==4.3.1
    ```
 
 2. Run migrations:
+
    ```bash
    python manage.py makemigrations
    python manage.py migrate
@@ -248,13 +208,16 @@ This guide explains the fixes applied to resolve the access token and refresh to
    ```
 
 ### Frontend Setup
+
 1. Create environment file:
+
    ```bash
    cd frontend
    cp env.example .env
    ```
 
 2. Update `.env` with your backend URL:
+
    ```
    REACT_APP_API_URL=http://localhost:8000
    ```
@@ -268,13 +231,16 @@ This guide explains the fixes applied to resolve the access token and refresh to
 ## Testing
 
 ### Backend Testing
+
 Run the test script to verify endpoints:
+
 ```bash
 cd backend
 python test_auth.py
 ```
 
 ### Frontend Testing
+
 1. Open browser to `http://localhost:3000`
 2. Try to login with valid credentials
 3. Check browser console for any errors
@@ -283,12 +249,14 @@ python test_auth.py
 ## How It Works Now
 
 1. **Login Flow**:
+
    - User submits credentials
    - Backend validates and returns access + refresh tokens
    - Frontend stores tokens in localStorage
    - Frontend automatically loads user data
 
 2. **Token Refresh**:
+
    - When access token expires (401 response)
    - Axios interceptor automatically tries to refresh
    - If refresh succeeds, retries original request
@@ -304,11 +272,13 @@ python test_auth.py
 ### Common Issues
 
 1. **CORS Errors**:
+
    - Ensure Django server is running
    - Check CORS configuration in settings.py
    - Verify frontend URL is in CORS_ALLOWED_ORIGINS
 
 2. **Token Not Found**:
+
    - Check localStorage for access/refresh tokens
    - Verify login response contains both tokens
    - Check browser console for errors
@@ -332,295 +302,3 @@ python test_auth.py
 - Tokens are automatically rotated on refresh
 - Invalid refresh tokens trigger automatic logout
 - CORS is configured for development only (update for production)
-
-
-
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-
-
-# Authentication Fix Guide
-
-This guide explains the fixes applied to resolve the access token and refresh token logic issues.
-
-## Issues Fixed
-
-1. **Missing base URL configuration** - Frontend now properly configured to connect to backend
-2. **Token refresh logic missing** - Added automatic token refresh when access token expires
-3. **Missing axios interceptors** - Added automatic token handling in HTTP requests
-4. **Token verification endpoint mismatch** - Fixed incorrect endpoint usage
-5. **Missing CORS configuration** - Added CORS support to allow frontend-backend communication
-
-## Backend Changes
-
-### 1. Updated `backend/auth_system/settings.py`
-- Added `corsheaders` to INSTALLED_APPS
-- Added CORS middleware configuration
-- Enhanced JWT configuration with proper token rotation and blacklisting
-- Added CORS allowed origins and headers
-
-### 2. Updated `backend/requirements.txt`
-- Added `django-cors-headers==4.3.1`
-
-## Frontend Changes
-
-### 1. Updated `frontend/src/utils/httpService.js`
-- Added proper base URL configuration
-- Added axios interceptors for automatic token handling
-- Added automatic token refresh logic
-- Added request/response interceptors
-
-### 2. Updated `frontend/src/store/auth.js`
-- Simplified authentication logic
-- Added proper error handling
-- Added token refresh functionality
-- Removed manual token verification that was causing issues
-
-## Setup Instructions
-
-### Backend Setup
-1. Install the new dependency:
-   ```bash
-   cd backend
-   pip install django-cors-headers==4.3.1
-   ```
-
-2. Run migrations:
-   ```bash
-   python manage.py makemigrations
-   python manage.py migrate
-   ```
-
-3. Start the Django server:
-   ```bash
-   python manage.py runserver
-   ```
-
-### Frontend Setup
-1. Create environment file:
-   ```bash
-   cd frontend
-   cp env.example .env
-   ```
-
-2. Update `.env` with your backend URL:
-   ```
-   REACT_APP_API_URL=http://localhost:8000
-   ```
-
-3. Install dependencies and start:
-   ```bash
-   npm install
-   npm start
-   ```
-
-## Testing
-
-### Backend Testing
-Run the test script to verify endpoints:
-```bash
-cd backend
-python test_auth.py
-```
-
-### Frontend Testing
-1. Open browser to `http://localhost:3000`
-2. Try to login with valid credentials
-3. Check browser console for any errors
-4. Verify tokens are stored in localStorage
-
-## How It Works Now
-
-1. **Login Flow**:
-   - User submits credentials
-   - Backend validates and returns access + refresh tokens
-   - Frontend stores tokens in localStorage
-   - Frontend automatically loads user data
-
-2. **Token Refresh**:
-   - When access token expires (401 response)
-   - Axios interceptor automatically tries to refresh
-   - If refresh succeeds, retries original request
-   - If refresh fails, redirects to login
-
-3. **Automatic Token Handling**:
-   - All HTTP requests automatically include Authorization header
-   - No need to manually add tokens to requests
-   - Automatic token refresh on 401 responses
-
-## Troubleshooting
-
-### Common Issues
-
-1. **CORS Errors**:
-   - Ensure Django server is running
-   - Check CORS configuration in settings.py
-   - Verify frontend URL is in CORS_ALLOWED_ORIGINS
-
-2. **Token Not Found**:
-   - Check localStorage for access/refresh tokens
-   - Verify login response contains both tokens
-   - Check browser console for errors
-
-3. **401 Unauthorized**:
-   - Check if access token is expired
-   - Verify refresh token is valid
-   - Check if user account is active
-
-### Debug Steps
-
-1. Check browser Network tab for failed requests
-2. Check browser Console for JavaScript errors
-3. Check Django server logs for backend errors
-4. Verify tokens in localStorage (Application tab in DevTools)
-
-## Security Notes
-
-- Access tokens expire after 60 minutes
-- Refresh tokens expire after 1 day
-- Tokens are automatically rotated on refresh
-- Invalid refresh tokens trigger automatic logout
-- CORS is configured for development only (update for production)
-
-
-
-# Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
