@@ -5,15 +5,35 @@ const theme = createTheme({
     primary: {
       main: "#e7e7e7ff",
     },
-
     secondary: {
-      main: "#858585ff",
+      main: "#686868ff",
+    },
+    tartiary: {
+      main: "#000000ff",
     },
   },
   typography: {
-    h6: {
-      fontWeight: 750,
-      color: "#000000ff",
+    fontFamily: "Poppins, Arial, sans-serif",
+    fontWeightLight: 300,
+    fontWeightRegular: 400,
+    fontWeightMedium: 500,
+    fontWeightBold: 700,
+  },
+  components: {
+    MuiTypography: {
+      variants: [
+        {
+          props: { variant: "typography2" }, 
+          style: {
+            fontSize: "2rem",         
+            fontWeight: 500,          
+            color: "#ffffffff",         
+            WebkitTextStroke: "1px black",
+            textAlign: "center",
+            display: "block",
+          },
+        },
+      ],
     },
   },
 });

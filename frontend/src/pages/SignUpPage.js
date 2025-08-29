@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
 import { signup } from "../store/auth";
 import httpService from "../utils/httpService";
 
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import GoogleIcon from "@mui/icons-material/Google";
 import FacebookIcon from "@mui/icons-material/Facebook";
+import GoogleIcon from "@mui/icons-material/Google";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -62,14 +62,19 @@ const SignUpPage = () => {
     <Box
       sx={{
         maxWidth: 400,
-        margin: "auto",
-        mt: 8,
-        p: 4,
+        margin: { xs: 0, sm: "auto" },
+        mt: { xs: 2, sm: 8 }, 
+        p: { xs: 2, sm: 4 }, 
         boxShadow: 3,
         borderRadius: 2,
       }}
     >
-      <Typography variant="h4" gutterBottom sx={{ textAlign: "center", mb: 4 }}>
+      <Typography
+        variant="typography2"
+        gutterBottom
+        fontWeight={"fontWeightMedium"}
+        sx={{ textAlign: "center", mb: 4 }}
+      >
         Create Your Account
       </Typography>
 
@@ -132,7 +137,17 @@ const SignUpPage = () => {
       </form>
 
       <Typography variant="body2" sx={{ mt: 2 }}>
-        Already have an account? <Link to="/login">Login</Link>
+        Already have an account?{" "}
+        <Link to="/login">
+          <Button
+            variant="outlined"
+            color="tartiary"
+            size="small"
+            sx={{ fontWeight: "fontWeightRegular" }}
+          >
+            LOGIN
+          </Button>
+        </Link>
       </Typography>
     </Box>
   );

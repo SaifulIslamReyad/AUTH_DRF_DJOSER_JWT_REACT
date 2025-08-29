@@ -1,12 +1,10 @@
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 import AuthLanding from "./AuthLanding";
-import SignInUp from "./SignInUp";
+import SignInUp from "../components/SignInUp";
 
 const HomePage = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
-  const navigate = useNavigate();
 
   return (
     <>

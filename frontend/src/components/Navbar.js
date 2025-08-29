@@ -45,9 +45,11 @@ const Navbar = () => {
             variant="h6"
             component={Link}
             to="/"
-            sx={{ flexGrow: 1, textDecoration: "none", color: "inherit" }}
+            fontSize={24}
+            fontWeight={"fontWeightBold"}
+            sx={{ textDecoration: "none", flexGrow: 1 , color: "tartiary.main"} }
           >
-            Auth :  React Redux Django Djoser JWT
+            Auth
           </Typography>
 
           {/* Navigation Links */}

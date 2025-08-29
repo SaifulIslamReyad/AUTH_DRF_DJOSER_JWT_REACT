@@ -40,6 +40,11 @@ build-run-backend:
 run-frontend:
 	cd frontend && npm start
 
+run-phone:
+
+	cd frontend  && npm start -- --host 0.0.0.0
+
+
 
 help:
 	@echo "  make all"
@@ -53,6 +58,6 @@ help:
 	@echo "  make build-run-backend "
 	@echo "  make build "
 
-.PHONY: migrate-run migrate run-backend clean-backend clean-backend-cache reset-db  help build-run-backend build run-frontend all
+.PHONY: migrate-run migrate run-backend clean-backend clean-backend-cache reset-db  help build-run-backend build run-frontend run-phone all
 
 

@@ -55,16 +55,16 @@ const LoginPage = () => {
 
   return (
     <Box
-      sx={{
-        maxWidth: 400,
-        margin: "auto",
-        mt: 8,
-        p: 4,
-        boxShadow: 3,
-        borderRadius: 2,
-      }}
-    >
-      <Typography variant="h4" gutterBottom
+  sx={{
+    maxWidth: 400,
+    margin: { xs: 0, sm: "auto" },  
+    mt: { xs: 2, sm: 8 },          
+    p: { xs: 2, sm: 4 },           
+    boxShadow: 3,
+    borderRadius: 2,
+  }}
+>
+      <Typography variant="typography2" gutterBottom fontWeight={"fontWeightMedium"}
         sx={{ textAlign: "center", mb: 4 }}>
         Sign Into Your Account
       </Typography>
@@ -120,10 +120,26 @@ const LoginPage = () => {
       </form>
 
       <Typography variant="body2" sx={{ mt: 2 }}>
-        Don't have an account? <Link to="/signup">Sign Up</Link>
+        Don't have an account? <Link to="/signup">   <Button
+            variant="outlined"
+            color="tartiary"
+            size="small"
+            sx={{ fontWeight: "fontWeightRegular" }}
+          >
+            SIGN-UP
+          </Button></Link>
       </Typography>
       <Typography variant="body2" sx={{ mt: 1 }}>
-        Forgot your password? <Link to="/reset-password">Reset Password</Link>
+        Forgot your password? <Link to="/reset-password">
+           <Button
+            variant="outlined"
+            color="tartiary"
+            size="small"
+            sx={{ fontWeight: "fontWeightRegular" }}
+          >
+            RESET-PASSWORD
+          </Button>
+        </Link>
       </Typography>
     </Box>
   );
