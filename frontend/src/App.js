@@ -6,6 +6,7 @@ import configureStore from "./store/configureStore";
 import Layout from "./hoc/Layout";
 
 import ActivateAccountPage from "./pages/ActivateAccountPage";
+import EmailVerificationPage from "./pages/EmailVerificationPage";
 import Facebook from "./pages/Facebook";
 import Google from "./pages/Google";
 import HomePage from "./pages/HomePage";
@@ -16,8 +17,8 @@ import ResetPasswordConfirmPage from "./pages/ResetPasswordConfirmPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import SignUpPage from "./pages/SignUpPage";
 
-import theme from "./theme";
 import { ThemeProvider } from "@mui/material/styles";
+import theme from "./theme";
 
 const store = configureStore();
 
@@ -33,6 +34,10 @@ const App = () => {
               <Route path="/google" element={<Google />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<SignUpPage />} />
+              <Route
+                path="/email-verification"
+                element={<EmailVerificationPage />}
+              />
               <Route path="/profile-setup" element={<ProfileSetupPage />} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route

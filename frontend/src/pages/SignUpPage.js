@@ -7,31 +7,71 @@ import httpService from "../utils/httpService";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [accountCreated, setAccountCreated] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     re_password: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [validationError, setValidationError] = useState("");
+
   const { email, password, re_password } = formData;
 
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { isAuthenticated, error, loading } = useSelector(
+    (state) => state.auth
+  );
 
   const handleOnChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    // Clear validation error when user starts typing
+
+    if (validationError) setValidationError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === re_password) {
-      dispatch(signup(email, password, re_password));
-      setAccountCreated(true);
+
+    // Basic validation
+    if (!email || !password || !re_password) {
+      setValidationError("Please fill in all fields");
+      return;
+    }
+
+    if (password !== re_password) {
+      setValidationError("Passwords do not match");
+      return;
+    }
+
+    if (password.length < 8) {
+      setValidationError("Password must be at least 8 characters long");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setValidationError("");
+
+    try {
+      await dispatch(signup(email, password, re_password));
+      // Navigate to email verification page with email info
+      navigate("/email-verification", { state: { email } });
+    } catch (error) {
+      // Error handling is done in the auth slice
+      console.error("Signup failed:", error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -55,16 +95,15 @@ const SignUpPage = () => {
 
   useEffect(() => {
     if (isAuthenticated) navigate("/");
-    if (accountCreated) navigate("/login");
-  }, [isAuthenticated, accountCreated, navigate]);
+  }, [isAuthenticated, navigate]);
 
   return (
     <Box
       sx={{
         maxWidth: 400,
         margin: { xs: 0, sm: "auto" },
-        mt: { xs: 2, sm: 8 }, 
-        p: { xs: 2, sm: 4 }, 
+        mt: { xs: 2, sm: 8 },
+        p: { xs: 2, sm: 4 },
         boxShadow: 3,
         borderRadius: 2,
       }}
@@ -80,6 +119,7 @@ const SignUpPage = () => {
 
       <form onSubmit={handleSubmit}>
         <Stack spacing={2}>
+          
           <TextField
             fullWidth
             type="email"
@@ -87,6 +127,8 @@ const SignUpPage = () => {
             label="Email Address"
             value={email}
             onChange={handleOnChange}
+            required
+            disabled={isSubmitting}
           />
           <TextField
             fullWidth
@@ -95,6 +137,13 @@ const SignUpPage = () => {
             label="Password"
             value={password}
             onChange={handleOnChange}
+            required
+            disabled={isSubmitting}
+            helperText={
+              password.length > 0 && password.length < 8
+                ? "Password must be at least 8 characters long"
+                : ""
+            }
           />
           <TextField
             fullWidth
@@ -103,6 +152,14 @@ const SignUpPage = () => {
             label="Confirm Password"
             value={re_password}
             onChange={handleOnChange}
+            required
+            disabled={isSubmitting}
+            error={password !== re_password && re_password !== ""}
+            helperText={
+              password !== re_password && re_password !== ""
+                ? "Passwords do not match"
+                : ""
+            }
           />
 
           <Button
@@ -110,8 +167,16 @@ const SignUpPage = () => {
             variant="contained"
             color="secondary"
             sx={{ borderRadius: "50px" }}
+            disabled={isSubmitting}
           >
-            Sign Up
+            {isSubmitting ? (
+              <>
+                <CircularProgress size={20} sx={{ mr: 1 }} />
+                Creating Account...
+              </>
+            ) : (
+              "Sign Up"
+            )}
           </Button>
 
           <Button
@@ -120,6 +185,7 @@ const SignUpPage = () => {
             startIcon={<GoogleIcon />}
             sx={{ borderRadius: "50px" }}
             onClick={handleContinueWithGoogle}
+            disabled={isSubmitting}
           >
             Continue with Google
           </Button>
@@ -130,6 +196,7 @@ const SignUpPage = () => {
             startIcon={<FacebookIcon />}
             sx={{ borderRadius: "50px" }}
             onClick={handleContinueWithFacebook}
+            disabled={isSubmitting}
           >
             Continue with Facebook
           </Button>

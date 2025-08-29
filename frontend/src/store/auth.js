@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { apiCallBegun } from "./api";
 import httpService from "../utils/httpService";
 
 const slice = createSlice({
@@ -100,6 +99,18 @@ const {
 } = slice.actions;
 export default slice.reducer;
 
+
+
+
+
+
+
+
+
+// async thunks for Google authentication
+
+
+
 export const checkAuthenticated = () => async (dispatch) => {
   const access = localStorage.getItem("access");
   const refresh = localStorage.getItem("refresh");
@@ -155,6 +166,8 @@ export const loadUser = () => async (dispatch) => {
     }
   }
 };
+
+
 
 export const googleAuthenticate = (state, code) => async (dispatch) => {
 // Handles the callback from Google after a user logs in with their Google account.
