@@ -9,11 +9,8 @@ export default combineReducers({
 
 
 // Combines multiple reducers into one root reducer.
-
 // Right now we only have authReducer.
-
 // In Redux store, the auth slice of state will look like:
-
 // state = {
 //   auth: {
 //     access: "...",

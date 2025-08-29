@@ -373,16 +373,10 @@ export const refreshToken = () => async (dispatch) => {
 //   loading: false,
 //   error: null,
 // }
-
-
 // Stores tokens, authentication status, user info, loading & error states.
-
 // Pulls tokens from localStorage for persistence.
-
 // b) Reducers
-
 // Each reducer is a function that updates state:
-
 // Reducer	Purpose
 // authStarted	Sets loading = true, resets errors
 // authSuccess	Stores tokens, sets isAuthenticated = true
@@ -394,106 +388,55 @@ export const refreshToken = () => async (dispatch) => {
 // authenticationFailed	Marks authentication failed
 // loggedOut	Clears everything → logout
 // tokenRefreshed	Updates access token when refresh succeeds
-
 // ✅ These handle all authentication-related state changes.
-
 // c) Async actions (Thunks)
 // 1. checkAuthenticated()
-
 // Checks if access + refresh tokens exist.
-
 // Tries to load user.
-
 // If access token invalid → tries to refresh token.
-
 // Updates state depending on success or failure.
-
 // 2. loadUser()
-
 // Fetches /auth/users/me/ → sets user in state.
-
 // Handles errors like missing or invalid token.
-
 // 3. Social Auth: googleAuthenticate & facebookAuthenticate
-
 // Send OAuth code + state to backend.
-
 // On success → authSuccess + loadUser.
-
 // 4. login(email, password)
-
 // Standard login using JWT.
-
 // On success → stores tokens + loads user.
-
 // On failure → updates error state.
-
 // 5. signup(email, password, re_password)
-
 // Registers a new user at /auth/users/.
-
 // On success → dispatches userSignedUp.
-
 // On failure → extracts meaningful backend errors and dispatches authFailed.
-
 // 6. Account verification & password reset
-
 // verify(uid, token) → activates user account.
-
 // reset_password(email) → sends reset email.
-
 // reset_password_confirm(uid, token, new_password) → confirms new password.
-
 // 7. logout()
-
 // Clears tokens and user info.
-
 // 8. updateProfile(profileData)
-
 // Updates user profile via PUT /accounts/profile/.
-
 // 9. refreshToken()
-
 // Uses refresh token to get a new access token.
-
 // Updates state or logs out if refresh fails.
-
 // d) Flow of a typical signup + login
-
 // User fills signup form → dispatches signup(email, password, re_password).
-
 // Redux thunk sends POST request to backend.
-
 // On success → userSignedUp() dispatched.
-
 // Component detects accountCreated = true → navigates to /login.
-
 // User logs in → dispatches login(email, password).
-
 // Redux thunk sends POST to /auth/jwt/create/.
-
 // On success → authSuccess() dispatched → tokens saved → loadUser() fetches profile.
-
 // Component sees isAuthenticated = true → navigates to home page.
-
 // ✅ Key concepts you should understand
-
 // Redux Toolkit Slices
-
 // Combines state + reducers + actions in one file.
-
 // Thunks
-
 // Functions that handle async logic (API calls) and dispatch multiple actions.
-
 // Centralized auth state
-
 // Tokens, user info, loading & errors are all in Redux.
-
 // Social auth integration
-
 // Works with Google/Facebook OAuth seamlessly.
-
 // Token refresh & auto logout
-
 // Your app automatically refreshes tokens or logs out the user if invalid.
