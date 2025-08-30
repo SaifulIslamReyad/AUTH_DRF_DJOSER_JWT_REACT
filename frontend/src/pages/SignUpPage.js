@@ -97,17 +97,14 @@ const SignUpPage = () => {
       setIsSubmitting(false);
     }
   };
+
   const handleContinueWithGoogle = async () => {
     setIsGoogleLoading(true);
     setValidationError("");
 
     try {
-      // Determine backend host dynamically
-      const host = window.location.hostname; // localhost or 192.168.x.x
-      const redirectURI = `http://${host}:8000/google`;
-
       const response = await httpService.get(
-        `/auth/o/google-oauth2/?redirect_uri=${encodeURIComponent(redirectURI)}`
+        "/auth/o/google-oauth2/?redirect_uri=http://localhost:8000/google"
       );
 
       if (response.data && response.data.authorization_url) {

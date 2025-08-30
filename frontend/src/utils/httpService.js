@@ -8,9 +8,10 @@ const baseURL =
     const hostname = window.location.hostname;
     if (hostname === "localhost" || hostname === "127.0.0.1") {
       return "http://localhost:8000";
-    } else {
-      return "http://192.168.1.206:8000";
-    }
+    } 
+    // else {
+    //   return "http://192.168.1.206:8000";
+    // }
   })();
 
 axios.defaults.baseURL = baseURL;

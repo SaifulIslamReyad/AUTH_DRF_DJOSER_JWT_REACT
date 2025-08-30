@@ -16,7 +16,11 @@ SECRET_KEY = os.environ.get("SECRET_KEY", get_random_secret_key())
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', "192.168.1.206"]
+ALLOWED_HOSTS = [
+                'localhost', 
+                 '127.0.0.1', 
+                #  "192.168.1.206"
+                 ]
 
 
 # Application definition
@@ -251,9 +255,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # CORS Configuration
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",  # React development server
+    "http://localhost:3000",  
     "http://127.0.0.1:3000",
-    "http://192.168.1.206:3000",
+    # "http://192.168.1.206:3000",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
