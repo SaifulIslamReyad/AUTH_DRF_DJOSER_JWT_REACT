@@ -1,4 +1,4 @@
-# Django React Auth System
+# Complete Prodution Ready Django React Auth System
 
 This repo contains a Django & React production level authentication functionality. It has most if not all of the features you would expect from a production level authentication feature. It has a fully functional backend with a REST API and a fully functional React frontend. It has the following fully functional features:
 
@@ -8,7 +8,7 @@ This repo contains a Django & React production level authentication functionalit
 - Sign in with Facebook
 - Password reset with email verification
 
-A live demo of the project can be found [here]().
+A live demo of the project can be found [here](). 
 
 ## Major Packages used in the backend
 
