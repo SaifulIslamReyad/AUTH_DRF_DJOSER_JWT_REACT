@@ -11,7 +11,6 @@ import {
   Alert,
   Avatar,
   Box,
-  Button,
   Card,
   CardContent,
   Chip,
@@ -27,6 +26,7 @@ import {
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { LinkButton, PrimaryButton } from "../components/buttons";
 import { loadUser, updateProfile } from "../store/auth";
 import theme from "../theme.js";
 
@@ -162,8 +162,7 @@ const ProfilePage = () => {
             />
           </Box>
           {!isEditing && (
-            <Button
-              variant="contained"
+            <PrimaryButton
               startIcon={<EditIcon />}
               onClick={handleEdit}
               sx={{
@@ -172,7 +171,7 @@ const ProfilePage = () => {
               }}
             >
               Edit Profile
-            </Button>
+            </PrimaryButton>
           )}
         </Stack>
       </Paper>
@@ -232,9 +231,8 @@ const ProfilePage = () => {
 
                 {isEditing && (
                   <Stack direction="row" spacing={2}>
-                    <Button
+                    <PrimaryButton
                       type="submit"
-                      variant="contained"
                       startIcon={
                         updateLoading ? (
                           <CircularProgress size={20} />
@@ -243,22 +241,19 @@ const ProfilePage = () => {
                         )
                       }
                       disabled={updateLoading || !name.trim()}
-                      sx={{ borderRadius: "25px" }}
                     >
                       {updateLoading ? "Saving..." : "Save Changes"}
-                    </Button>
-                    <Button
-                      variant="outlined"
+                    </PrimaryButton>
+                    <LinkButton
                       startIcon={<CancelIcon />}
                       onClick={handleCancel}
                       disabled={updateLoading}
-                      sx={{ borderRadius: "25px" }}
                     >
                       Cancel
-                    </Button>
+                    </LinkButton>
                   </Stack>
                 )}
-              </Stack>  
+              </Stack>
             </form>
           </Paper>
         </Grid>
@@ -287,7 +282,11 @@ const ProfilePage = () => {
                   <Chip
                     label="Active"
                     size="small"
-                    sx={{ mt: 0.5 ,backgroundColor: theme.palette.verified.main, color: "white" }}
+                    sx={{
+                      mt: 0.5,
+                      backgroundColor: theme.palette.verified.main,
+                      color: "white",
+                    }}
                   />
                 </Box>
 

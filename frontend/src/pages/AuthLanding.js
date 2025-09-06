@@ -6,7 +6,6 @@ import {
 import {
   Avatar,
   Box,
-  Button,
   Chip,
   Container,
   Paper,
@@ -15,8 +14,9 @@ import {
 } from "@mui/material";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import theme from "../theme.js"
+import { useNavigate } from "react-router-dom";
+import { LinkButton, PrimaryButton } from "../components/buttons";
+import theme from "../theme.js";
 
 const AuthLanding = () => {
   const { isAuthenticated, user } = useSelector((state) => state.auth);
@@ -94,11 +94,8 @@ const AuthLanding = () => {
           />
 
           {/* Action Button */}
-          <Button
-            component={Link}
+          <PrimaryButton
             to="/profile"
-            variant="contained"
-            size="large"
             sx={{
               mt: 3,
               px: 4,
@@ -117,7 +114,7 @@ const AuthLanding = () => {
             }}
           >
             View Profile
-          </Button>
+          </PrimaryButton>
         </Stack>
       </Paper>
 
@@ -132,22 +129,8 @@ const AuthLanding = () => {
           justifyContent="center"
           sx={{ mt: 2 }}
         >
-          <Button
-            component={Link}
-            to="/profile"
-            variant="outlined"
-            sx={{ borderRadius: "25px" }}
-          >
-            Edit Profile
-          </Button>
-          <Button
-            component={Link}
-            to="/"
-            variant="outlined"
-            sx={{ borderRadius: "25px" }}
-          >
-            Dashboard
-          </Button>
+          <LinkButton to="/profile">Edit Profile</LinkButton>
+          <LinkButton to="/">Dashboard</LinkButton>
         </Stack>
       </Box>
     </Container>

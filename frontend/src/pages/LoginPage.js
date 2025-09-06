@@ -5,10 +5,12 @@ import { Link, useNavigate } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 
+import { LinkButton, PrimaryButton, SocialButton } from "../components/buttons";
+import { Typography, Typography2 } from "../components/typography";
 import { login } from "../store/auth";
 import httpService from "../utils/httpService";
 
-import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import { Box, Stack, TextField } from "@mui/material";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -55,19 +57,22 @@ const LoginPage = () => {
 
   return (
     <Box
-  sx={{
-    maxWidth: 400,
-    margin: { xs: 0, sm: "auto" },  
-    mt: { xs: 2, sm: 8 },          
-    p: { xs: 2, sm: 4 },           
-    boxShadow: 3,
-    borderRadius: 2,
-  }}
->
-      <Typography variant="typography2" gutterBottom fontWeight={"fontWeightMedium"}
-        sx={{ textAlign: "center", mb: 4 }}>
+      sx={{
+        maxWidth: 400,
+        margin: { xs: 0, sm: "auto" },
+        mt: { xs: 2, sm: 8 },
+        p: { xs: 2, sm: 4 },
+        boxShadow: 3,
+        borderRadius: 2,
+      }}
+    >
+      <Typography2
+        gutterBottom
+        fontWeight={"fontWeightMedium"}
+        sx={{ textAlign: "center", mb: 4 }}
+      >
         Sign Into Your Account
-      </Typography>
+      </Typography2>
 
       <form onSubmit={handleSubmit}>
         <Stack spacing={2}>
@@ -88,57 +93,41 @@ const LoginPage = () => {
             onChange={handleOnChange}
           />
 
-          <Button
-            type="submit"
-            variant="contained"
-            color="secondary"
-            sx={{ borderRadius: "50px" }}
-          >
-            Login
-          </Button>
+          <PrimaryButton type="submit">Login</PrimaryButton>
 
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<GoogleIcon />}
-            sx={{ borderRadius: "50px" }}
+          <SocialButton
+            provider="google"
+            icon={<GoogleIcon />}
             onClick={handleContinueWithGoogle}
           >
             Continue with Google
-          </Button>
+          </SocialButton>
 
-          <Button
-            variant="contained"
-            color="primary" // Facebook blue
-            startIcon={<FacebookIcon />}
-            sx={{ borderRadius: "50px" }}
+          <SocialButton
+            provider="facebook"
+            icon={<FacebookIcon />}
             onClick={handleContinueWithFacebook}
           >
             Continue with Facebook
-          </Button>
+          </SocialButton>
         </Stack>
       </form>
 
       <Typography variant="body2" sx={{ mt: 2 }}>
-        Don't have an account? <Link to="/signup">   <Button
-            variant="outlined"
-            color="tartiary"
-            size="small"
-            sx={{ fontWeight: "fontWeightRegular" }}
-          >
-            SIGN-UP
-          </Button></Link>
+        Don't have an account?{" "}
+        <Link to="/signup">
+          {" "}
+          <LinkButton to="/auth" sx={{ fontSize: "18px" }}>
+            No Account? Sign Up
+          </LinkButton>
+        </Link>
       </Typography>
       <Typography variant="body2" sx={{ mt: 1 }}>
-        Forgot your password? <Link to="/reset-password">
-           <Button
-            variant="outlined"
-            color="tartiary"
-            size="small"
-            sx={{ fontWeight: "fontWeightRegular" }}
-          >
-            RESET-PASSWORD
-          </Button>
+        Forgot your password?{" "}
+        <Link to="/reset-password">
+          <LinkButton to="/reset-password" sx={{ fontSize: "16px" }}>
+            Forgot your password?
+          </LinkButton>
         </Link>
       </Typography>
     </Box>

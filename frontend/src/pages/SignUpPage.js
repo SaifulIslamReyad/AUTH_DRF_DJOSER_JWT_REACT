@@ -2,20 +2,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
+import { LinkButton, PrimaryButton, SocialButton } from "../components/buttons";
+import { Typography, Typography2 } from "../components/typography";
 import { signup } from "../store/auth";
 import httpService from "../utils/httpService";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
-import {
-  Alert,
-  Box,
-  Button,
-  CircularProgress,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Alert, Box, Stack, TextField } from "@mui/material";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -159,14 +153,13 @@ const SignUpPage = () => {
         borderRadius: 2,
       }}
     >
-      <Typography
-        variant="typography2"
+      <Typography2
         gutterBottom
         fontWeight={"fontWeightMedium"}
         sx={{ textAlign: "center", mb: 4 }}
       >
         Create Your Account
-      </Typography>
+      </Typography2>
 
       <form onSubmit={handleSubmit}>
         <Stack spacing={2}>
@@ -232,71 +225,41 @@ const SignUpPage = () => {
             }
           />
 
-          <Button
+          <PrimaryButton
             type="submit"
-            variant="contained"
-            color="secondary"
-            sx={{ borderRadius: "50px" }}
-            disabled={isSubmitting}
+            loading={isSubmitting}
+            loadingText="Creating Account..."
           >
-            {isSubmitting ? (
-              <>
-                <CircularProgress size={20} sx={{ mr: 1 }} />
-                Creating Account...
-              </>
-            ) : (
-              "Sign Up"
-            )}
-          </Button>
+            Sign Up
+          </PrimaryButton>
 
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={
-              isGoogleLoading ? <CircularProgress size={20} /> : <GoogleIcon />
-            }
-            sx={{ borderRadius: "50px" }}
+          <SocialButton
+            provider="google"
+            icon={<GoogleIcon />}
+            loading={isGoogleLoading}
+            loadingText="Connecting to Google..."
             onClick={handleContinueWithGoogle}
-            disabled={isGoogleLoading}
           >
-            {isGoogleLoading
-              ? "Connecting to Google..."
-              : "Continue with Google"}
-          </Button>
+            Continue with Google
+          </SocialButton>
 
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={
-              isFacebookLoading ? (
-                <CircularProgress size={20} />
-              ) : (
-                <FacebookIcon />
-              )
-            }
-            sx={{ borderRadius: "50px" }}
+          <SocialButton
+            provider="facebook"
+            icon={<FacebookIcon />}
+            loading={isFacebookLoading}
+            loadingText="Connecting to Facebook..."
             onClick={handleContinueWithFacebook}
-            disabled={isFacebookLoading}
           >
-            {isFacebookLoading
-              ? "Connecting to Facebook..."
-              : "Continue with Facebook"}
-          </Button>
+            Continue with Facebook
+          </SocialButton>
         </Stack>
       </form>
 
       <Typography variant="body2" sx={{ mt: 2 }}>
         Already have an account?{" "}
-        <Link to="/login">
-          <Button
-            variant="outlined"
-            color="tartiary"
-            size="small"
-            sx={{ fontWeight: "fontWeightRegular" }}
-          >
-            LOGIN
-          </Button>
-        </Link>
+        <LinkButton to="/login" color="primary">
+          LOGIN
+        </LinkButton>
       </Typography>
     </Box>
   );

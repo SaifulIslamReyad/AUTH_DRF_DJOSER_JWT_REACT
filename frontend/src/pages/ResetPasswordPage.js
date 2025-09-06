@@ -6,7 +6,6 @@ import {
 import {
   Alert,
   Box,
-  Button,
   CircularProgress,
   Container,
   Paper,
@@ -16,8 +15,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
+import { LinkButton, PrimaryButton } from "../components/buttons";
 import { reset_password } from "../store/auth";
 
 const ResetPasswordPage = () => {
@@ -84,14 +84,7 @@ const ResetPasswordPage = () => {
             Please check your inbox and spam folder. You will be redirected to
             the login page shortly.
           </Alert>
-          <Button
-            component={Link}
-            to="/login"
-            variant="contained"
-            sx={{ borderRadius: "25px" }}
-          >
-            Back to Login
-          </Button>
+          <LinkButton to="/login">Back to Login</LinkButton>
         </Paper>
       </Container>
     );
@@ -141,35 +134,29 @@ const ResetPasswordPage = () => {
               }}
             />
 
-            <Button
+            <PrimaryButton
               type="submit"
-              variant="contained"
-              size="large"
               disabled={loading || !email.trim()}
               startIcon={
                 loading ? <CircularProgress size={20} /> : <SendIcon />
               }
               sx={{
-                borderRadius: "50px",
                 py: 1.5,
                 fontSize: "1.1rem",
               }}
             >
               {loading ? "Sending..." : "Send Reset Link"}
-            </Button>
+            </PrimaryButton>
 
-            <Button
-              component={Link}
+            <LinkButton
               to="/login"
-              variant="text"
               startIcon={<ArrowBackIcon />}
               sx={{
-                borderRadius: "25px",
                 color: "text.secondary",
               }}
             >
               Back to Login
-            </Button>
+            </LinkButton>
           </Stack>
         </form>
       </Paper>

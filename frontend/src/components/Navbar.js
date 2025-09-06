@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { checkAuthenticated, loadUser, logout } from "../store/auth";
+import { Typography } from "./typography";
 
+import MenuIcon from "@mui/icons-material/Menu";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import Toolbar from "@mui/material/Toolbar";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const Navbar = () => {
             to="/"
             fontSize={24}
             fontWeight={"fontWeightBold"}
-            sx={{ textDecoration: "none", flexGrow: 1 , color: "tartiary.main"} }
+            sx={{ textDecoration: "none", flexGrow: 1, color: "tartiary.main" }}
           >
             Auth
           </Typography>

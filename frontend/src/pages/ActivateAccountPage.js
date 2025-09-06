@@ -5,7 +5,6 @@ import {
 import {
   Alert,
   Box,
-  Button,
   CircularProgress,
   Paper,
   Stack,
@@ -15,6 +14,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { LinkButton, PrimaryButton } from "../components/buttons";
 import { verify } from "../store/auth";
 
 const ActivateAccountPage = () => {
@@ -95,13 +95,9 @@ const ActivateAccountPage = () => {
               Your account has been successfully activated. You will be
               redirected to the login page shortly.
             </Typography>
-            <Button
-              variant="contained"
-              onClick={() => navigate("/login")}
-              sx={{ borderRadius: "25px", px: 4 }}
-            >
+            <PrimaryButton onClick={() => navigate("/login")} sx={{ px: 4 }}>
               Go to Login
-            </Button>
+            </PrimaryButton>
           </Stack>
         )}
 
@@ -115,20 +111,12 @@ const ActivateAccountPage = () => {
               {error}
             </Alert>
             <Stack direction="row" spacing={2}>
-              <Button
-                variant="contained"
-                onClick={() => navigate("/signup")}
-                sx={{ borderRadius: "25px" }}
-              >
+              <PrimaryButton onClick={() => navigate("/signup")}>
                 Sign Up Again
-              </Button>
-              <Button
-                variant="outlined"
-                onClick={() => navigate("/login")}
-                sx={{ borderRadius: "25px" }}
-              >
+              </PrimaryButton>
+              <LinkButton onClick={() => navigate("/login")}>
                 Go to Login
-              </Button>
+              </LinkButton>
             </Stack>
           </Stack>
         )}
@@ -142,13 +130,9 @@ const ActivateAccountPage = () => {
             <Typography variant="body1">
               The activation link is invalid or incomplete.
             </Typography>
-            <Button
-              variant="contained"
-              onClick={() => navigate("/signup")}
-              sx={{ borderRadius: "25px" }}
-            >
+            <PrimaryButton onClick={() => navigate("/signup")}>
               Sign Up Again
-            </Button>
+            </PrimaryButton>
           </Stack>
         ) : null}
       </Paper>

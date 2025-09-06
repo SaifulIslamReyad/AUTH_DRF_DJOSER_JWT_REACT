@@ -8,7 +8,6 @@ import {
   Alert,
   Avatar,
   Box,
-  Button,
   CircularProgress,
   Container,
   Paper,
@@ -22,6 +21,7 @@ import {
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { LinkButton, PrimaryButton } from "../components/buttons";
 import { updateProfile } from "../store/auth";
 
 const ProfileSetupPage = () => {
@@ -171,35 +171,30 @@ const ProfileSetupPage = () => {
               helperText="This name will be displayed on your profile"
             />
 
-            <Button
+            <PrimaryButton
               type="submit"
-              variant="contained"
-              size="large"
               disabled={loading || !name.trim()}
               startIcon={
                 loading ? <CircularProgress size={20} /> : <SaveIcon />
               }
               sx={{
-                borderRadius: "50px",
                 py: 1.5,
                 fontSize: "1.1rem",
               }}
             >
               {loading ? "Saving Profile..." : "Complete Setup"}
-            </Button>
+            </PrimaryButton>
 
-            <Button
-              variant="text"
+            <LinkButton
               startIcon={<SkipIcon />}
               onClick={handleSkip}
               disabled={loading}
               sx={{
-                borderRadius: "25px",
                 color: "text.secondary",
               }}
             >
               Skip for now
-            </Button>
+            </LinkButton>
           </Stack>
         </form>
 

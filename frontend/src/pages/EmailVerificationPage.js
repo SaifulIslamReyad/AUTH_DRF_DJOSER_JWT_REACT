@@ -3,8 +3,10 @@ import {
   CheckCircle as CheckCircleIcon,
   Email as EmailIcon,
 } from "@mui/icons-material";
-import { Box, Button, Paper, Stack, Typography } from "@mui/material";
+import { Box, Paper, Stack } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
+import { LinkButton, PrimaryButton } from "../components/buttons";
+import { Typography } from "../components/typography";
 
 const EmailVerificationPage = () => {
   const navigate = useNavigate();
@@ -86,7 +88,7 @@ const EmailVerificationPage = () => {
         </Typography>
 
         {/* Main Message */}
-       <Typography
+        <Typography
           variant="body2"
           sx={{
             mb: 4,
@@ -121,20 +123,16 @@ const EmailVerificationPage = () => {
         </Box>
 
         {/* Instructions */}
-        
 
         {/* Action Buttons */}
         <Stack spacing={2}>
           {/* Gmail Button */}
-          <Button
-            variant="contained"
-            size="large"
+          <PrimaryButton
             startIcon={<EmailIcon />}
             onClick={handleOpenGmail}
             sx={{
               backgroundColor: "#EA4335",
               color: "white",
-              borderRadius: "50px",
               py: 1.5,
               fontSize: "1.1rem",
               fontWeight: "medium",
@@ -144,34 +142,28 @@ const EmailVerificationPage = () => {
             }}
           >
             Open Gmail
-          </Button>
+          </PrimaryButton>
 
           {/* Secondary Actions */}
           <Stack direction="row" spacing={2} justifyContent="center">
-            <Button
-              variant="outlined"
-              size="medium"
+            <LinkButton
               startIcon={<ArrowBackIcon />}
               onClick={handleBackToLogin}
               sx={{
-                borderRadius: "25px",
                 px: 3,
               }}
             >
               Back to Login
-            </Button>
+            </LinkButton>
 
-            <Button
-              variant="outlined"
-              size="medium"
+            <LinkButton
               onClick={handleBackToSignup}
               sx={{
-                borderRadius: "25px",
                 px: 3,
               }}
             >
               Try Again
-            </Button>
+            </LinkButton>
           </Stack>
         </Stack>
 

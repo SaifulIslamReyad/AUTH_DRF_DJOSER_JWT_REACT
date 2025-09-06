@@ -7,7 +7,6 @@ import {
 import {
   Alert,
   Box,
-  Button,
   CircularProgress,
   Container,
   IconButton,
@@ -18,8 +17,9 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
+import { LinkButton, PrimaryButton } from "../components/buttons";
 import { reset_password_confirm } from "../store/auth";
 
 const ResetPasswordConfirmPage = () => {
@@ -113,14 +113,7 @@ const ResetPasswordConfirmPage = () => {
           <Alert severity="success" sx={{ mb: 3 }}>
             You will be redirected to the login page shortly.
           </Alert>
-          <Button
-            component={Link}
-            to="/login"
-            variant="contained"
-            sx={{ borderRadius: "25px" }}
-          >
-            Go to Login
-          </Button>
+          <LinkButton to="/login">Go to Login</LinkButton>
         </Paper>
       </Container>
     );
@@ -204,34 +197,28 @@ const ResetPasswordConfirmPage = () => {
               }}
             />
 
-            <Button
+            <PrimaryButton
               type="submit"
-              variant="contained"
-              size="large"
               disabled={loading || !new_password || !re_new_password}
               startIcon={
                 loading ? <CircularProgress size={20} /> : <LockIcon />
               }
               sx={{
-                borderRadius: "50px",
                 py: 1.5,
                 fontSize: "1.1rem",
               }}
             >
               {loading ? "Resetting..." : "Reset Password"}
-            </Button>
+            </PrimaryButton>
 
-            <Button
-              component={Link}
+            <LinkButton
               to="/login"
-              variant="text"
               sx={{
-                borderRadius: "25px",
                 color: "text.secondary",
               }}
             >
               Back to Login
-            </Button>
+            </LinkButton>
           </Stack>
         </form>
       </Paper>
