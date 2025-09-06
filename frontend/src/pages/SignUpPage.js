@@ -153,18 +153,14 @@ const SignUpPage = () => {
         borderRadius: 2,
       }}
     >
-      <Typography2
-        gutterBottom
-        fontWeight={"fontWeightMedium"}
-        sx={{ textAlign: "center", mb: 4 }}
-      >
+      <Typography2>
         Create Your Account
       </Typography2>
 
       <form onSubmit={handleSubmit}>
         <Stack spacing={2}>
           {/* Error Display */}
-          {(validationError || error) && (
+          {(validationError || (error && error !== "No tokens found")) && (
             <Alert severity="error" sx={{ mb: 2 }}>
               {validationError || error}
               {/* Show helpful link for duplicate email errors */}

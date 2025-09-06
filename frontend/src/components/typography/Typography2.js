@@ -9,10 +9,11 @@ const Typography2 = ({ children, sx = {}, ...props }) => {
     textAlign: "center",
     display: "block",
     fontFamily: "Poppins, Arial, sans-serif",
+    mb: 4,
   };
 
   return (
-    <MuiTypography sx={{ ...defaultStyles, ...sx }} {...props}>
+    <MuiTypography gutterBottom sx={{ ...defaultStyles, ...sx }} {...props}>
       {children}
     </MuiTypography>
   );

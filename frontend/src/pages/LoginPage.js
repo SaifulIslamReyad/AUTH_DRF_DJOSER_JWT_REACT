@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -66,13 +66,7 @@ const LoginPage = () => {
         borderRadius: 2,
       }}
     >
-      <Typography2
-        gutterBottom
-        fontWeight={"fontWeightMedium"}
-        sx={{ textAlign: "center", mb: 4 }}
-      >
-        Sign Into Your Account
-      </Typography2>
+      <Typography2>Sign Into Your Account</Typography2>
 
       <form onSubmit={handleSubmit}>
         <Stack spacing={2}>
@@ -113,22 +107,18 @@ const LoginPage = () => {
         </Stack>
       </form>
 
-      <Typography variant="body2" sx={{ mt: 2 }}>
+      <Typography variant="body2" sx={{ mt: 2, textAlign: "center" }}>
         Don't have an account?{" "}
-        <Link to="/signup">
-          {" "}
-          <LinkButton to="/auth" sx={{ fontSize: "18px" }}>
-            No Account? Sign Up
-          </LinkButton>
-        </Link>
+        <LinkButton to="/signup" color="primary">
+          SIGN UP
+        </LinkButton>
       </Typography>
-      <Typography variant="body2" sx={{ mt: 1 }}>
-        Forgot your password?{" "}
-        <Link to="/reset-password">
-          <LinkButton to="/reset-password" sx={{ fontSize: "16px" }}>
-            Forgot your password?
-          </LinkButton>
-        </Link>
+
+      <Typography variant="body2" sx={{ mt: 1, textAlign: "center" }}>
+        Forgot your password??{" "}
+        <LinkButton to="/reset-password" color="primary">
+          Reset Password
+        </LinkButton>
       </Typography>
     </Box>
   );
